@@ -1,5 +1,5 @@
 
-#airport-switch {
+#airport-switch, #voice-switch {
   background-color: rgba(15, 25, 20, 1);
 
   box-shadow: 0 0 0 6px rgba(31, 65, 48, 1.0);
@@ -17,19 +17,19 @@
   height: auto;
 
   opacity: 0;
-  
+
   pointer-events: none;
 
   transition: opacity 0.5s ease;
 }
 
-#airport-switch.open {
+#airport-switch.open, #voice-switch.open {
   pointer-events: auto;
 
   opacity: 1;
 }
 
-#airport-switch .airport {
+#airport-switch .airport, #voice-switch .voice {
   list-style-type: none;
 
   padding: 5px 10px;

@@ -1202,7 +1202,7 @@ function aircraft_new(options) {
 
   prop.aircraft.list.push(aircraft);
 
-  console.log("adding " + options.category + " aircraft, callsign " + aircraft.getCallsign());
+  //console.log("adding " + options.category + " aircraft, callsign " + aircraft.getCallsign());
 }
 
 function aircraft_load(icao) {

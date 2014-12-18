@@ -50,6 +50,10 @@ function ui_init() {
   $("#paused img").click(function() {
     game_unpause();
   });
+
+  $(".toggle-voice ").click(function(){
+    ui_voice_toggle();
+  });
 }
 
 function ui_complete() {
@@ -72,6 +76,26 @@ function ui_complete() {
     });
 
     $("#airport-switch .list").append(html);
+
+  }
+
+  var voices = []
+
+  for(var i in prop.voice.voices) voices.push(i);
+
+  for(var i=0;i<voices.length;i++) {
+    var voice = prop.voice.voices[voices[i]];
+
+    var html = $("<li class='voice "+voice.name.toLowerCase()+"'><span class='name'>" + voice.name + "</span><span class='name'>" + voice.name + "</span></li>");
+
+    html.click(voice.name.toLowerCase(), function(e) {
+      if(e.data != voice_get().name) {
+        voice_set(e.data);
+        ui_voice_close();
+      }
+    });
+
+    $("#voice-switch .list").append(html);
 
   }
 }
@@ -105,7 +129,11 @@ function ui_log(message) {
       html.remove();
     }, 10000);
   }, 3, window, html);
-//  console.log("MESSAGE: " + message);
+  console.log("MESSAGE: " + message);
+
+  if (prop.speech) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
+  }
 }
 
 function ui_airport_open() {
@@ -124,4 +152,22 @@ function ui_airport_close() {
 function ui_airport_toggle() {
   if($("#airport-switch").hasClass("open")) ui_airport_close();
   else                                      ui_airport_open();
+}
+
+function ui_voice_open() {
+  $(".voice").removeClass("active");
+  $(".voice."+voice_get().name.toLowerCase()).addClass("active");
+
+  $("#voice-switch").addClass("open");
+  $(".switch-voice").addClass("active");
+}
+
+function ui_voice_close() {
+  $("#voice-switch").removeClass("open");
+  $(".switch-voice").removeClass("active");
+}
+
+function ui_voice_toggle() {
+  if($("#voice-switch").hasClass("open")) ui_voice_close();
+  else                                      ui_voice_open();
 }

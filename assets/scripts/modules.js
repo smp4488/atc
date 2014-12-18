@@ -24,7 +24,9 @@ var MODULES=[
 
   "ui",
 
-  "load"
+  "load",
+
+  "voice"
 ];
 
 // saved as prop.version and prop.version_string
@@ -109,6 +111,8 @@ function prop_init() {
   prop.loaded=false;
   if(RELEASE)
     prop.log=LOG_WARNING;
+  if ('speechSynthesis' in window)
+    prop.speech = true;
 }
 
 // MISC
